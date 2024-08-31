@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager - Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("/static/images/bg1.jpg"); /* Add background image */
+            background-size: center;
+            background-position: center;
+        }
+        table {
+            width: 80%;
+            margin: 40px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #120808;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5ebeb;
+        }
+        .nav {
+            background-color: #4d4774;
+            color: #9de0f7;
+            padding: 10px;
+            text-align: center;
+        }
+        .nav a {
+            color: #86cfdc;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #444;
+            color: #304d4c;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/dashboard">Dashboard</a><br><br>
+        <a href="/logout" style="float: right;">Logout</a>
+        <a href="/profileedit" style="float: right; margin-right: 20px;">Profile Edit</a>
+
+        <h1>Welcome to Dashboard, {{ username }}!</h1>
+    </nav>
+    <br><br>
+    <form method="POST" action="/add_task">
+        <label for="task_name">Add Task:</label>
+        <input type="text" name="task_name" id="task_name" required>
+        <input type="submit" value="Add">
+    </form>
+    <table>
+        <tr>
+            <th>Dashboard</th>
+            <th>Actions</th>
+            <th>Tasks</th>
+        </tr>
+        <tr>
+            <td>Welcome To Dashboard</td>
+            <td>
+                <button style="float: right;" onclick="location.href='/profileedit'">Profile Edit</button>
+            </td>
+            <td>
+                <button type="button" id="view-tasks-btn" style="float: right;">View Tasks</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div id="tasks-list">
+                    <table id="task-table" style="display: none;">
+                        <tr>
+                            <th>Task ID</th>
+                            <th>Task Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>{{ task[0] }}</td>
+                            <td>{{ task[2]}}</td>
+                            <td>
+                                <a href="/deleted_task/{{ task[0] }}" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="button" value="History" onclick="location.href='/view_deleted_tasks'" style="display: block; margin: 0 auto;">
+            </td>
+        </tr>
+    </table>
+
+    <!-- Create a separate table to display deleted tasks -->
+    <table id="deleted-tasks-table" style="display: none;">
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+        </tr>
+        {% for task in deleted_tasks %}
+        <tr>
+            <td>{{ task[0] }}</td>
+            <td>{{ task[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        // Add an event listener to the view button
+        document.getElementById('view-tasks-btn').addEventListener('click', function() {
+            // Display the task table
+            const taskTable = document.getElementById('task-table');
+            taskTable.style.display = 'block';
+        });
+        
+        // Add an event listener to the form submission
+        document.querySelector('form').addEventListener('submit', function() {
+            // Update the task list after adding a new task
+            const taskTable = document.getElementById('task-table');
+            taskTable.innerHTML = '';
+            fetch('/get_tasks')
+                .then(response => response.json())
+                .then(tasks => {
+                    tasks.forEach(task => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${task[0]}</td>
+                            <td>${task[2]}</td>
+                            <td>
+                                <a href="/deleted_task/${task[0]}" class="btn btn-primary">Delete</a>
+                            </td>
+                        `;
+                        taskTable.appendChild(row);
+                    });
+                });
+        });
+        
+               // Add an event listener to the view deleted tasks button
+               document.querySelector('[value="View Deleted Tasks"]').addEventListener('click', function() {
+            // Display the deleted tasks table
+            const deletedTasksTable = document.getElementById('deleted-tasks-table');
+            deletedTasksTable.style.display = 'block';
+        });
+       
+    </script>
+</body>
+</html>
+        
+       

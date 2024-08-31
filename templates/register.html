@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url({{url_for('static', filename="images.jpg") }});
+            background-size:cover;
+            background-position:center;
+            height:100vh;
+            margin:0;
+        }
+        form {
+            width: 50%;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #23080809;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(249, 245, 245, 0.8);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #6a0808;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            height: 40px;
+            background-color: #4CAF50;
+            color: #7b0a0a;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+       .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="POST" action="/register">
+        <label for="username">
+            <i class="fas fa-user icon"></i>
+            Username:
+        </label>
+        <input type="text" name="username" id="username" required><br><br>
+
+        <label for="email">
+            <i class="fas fa-envelope icon"></i>
+            Email:
+        </label>
+        <input type="email" name="email" id="email" required><br><br>
+
+        <label for="password">
+            <i class="fas fa-lock icon"></i>
+            Password:
+        </label>
+        <input type="password" name="password" id="password" required><br><br>
+
+        <label for="confirm_password">
+            <i class="fas fa-lock icon"></i>
+            Confirm Password:
+        </label>
+        <input type="password" name="confirm_password" id="confirm_password" required><br><br>
+
+        <label for="contact_no">
+            <i class="fas fa-phone icon"></i>
+            Contact Number:
+        </label>
+        <input type="tel" name="contact_no" id="contact_no" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+    <p>Already have an account? <a href="/">Login</a></p>
+</body>
+</html>

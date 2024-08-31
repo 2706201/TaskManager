@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager - Profile Edit</title>
+    <style>
+        
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-image: url("/static/images/3.jpg"); /* Add background image */
+            background-size: cover;
+            background-position: center;
+        }
+        form {
+            width: 50%;
+            margin: 30px auto;
+            padding: 20px;
+            border: 3px solid #131515;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(69, 220, 231, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #0aa6e9;
+        }
+        input[type="submit"] {
+            background-color: #a614ef;
+            color: #e88888;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="/dashboard">Dashboard</a><br><br>
+        <a href="/logout" style="float: right;">Logout</a>
+        <h1>Profile Edit</h1>
+    </nav>
+    <br><br>
+    <form method="POST" action="/update_profile">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" value="{{ username }}" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" value="{{ email }}" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" id="confirm_password" required>
+        <input type="submit" value="Update Profile">
+    </form>
+</body>
+</html>

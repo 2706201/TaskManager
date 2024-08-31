@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deleted Tasks</title>
+    <style>
+         body {
+            font-family: Arial;
+            text-align: center;
+            background-image: url("/static/images/5.jpg"); /* Add background image */
+            background-size: cover;
+            background-position: center;
+        }
+        table {
+            width: 80%;
+            margin: 40px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deleted Tasks</h1>
+    <table>
+        <tr>
+            <th>Task Name</th>
+            <th>Date&Time</th>
+        </tr>
+        {% for task in deleted_tasks %}
+        <tr>
+            <td>{{ task[2] }}</td>
+            <td>{{ task[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>
